@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="shortcut icon" href="i1ccavgio_fav.ico" type="iamge/x-icon">
+		<link rel="icon" href="i1ccavgio_fav.ico" type="image/x-icon">
+		<title>codifica </title>
+		<meta charset="UTF-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="i1ccavgio">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<!--creazoine: 27.09.2019; ultima modifica:27.09.2019-->
+		<!--O.S.= windows 10; browser=firefox-->
+	</head>
+
+	<body>
+		<textarea  id="chiaro" style="width: 120px; height: 120px;" oninput="main(this.id)"></textarea>
+		<h5>testo codificato:</h5>
+		<p id="codificato"></p>
+		<h5>testo decodificato:</h5>
+		<p id="decodificato"></p>
+		
+		
+	</body>
+
+	<script>
+
+		function codifica(text){
+			var codified = "";
+			for (var i = 0; i < text.length; i++) {	
+				var charValue = text.charCodeAt(i)-64;
+				var charCodified;
+				if(charValue >= 0 && charValue <= 9){
+					if(charValue == 5){
+						charCodified = 14+64;
+					}else{
+						charCodified = (10 - charValue)+64;
+					}
+				}else if(charValue >= 0 && charValue <= 18){
+					if(charValue == 14){
+						charCodified = 5+64;
+					}else{
+						charCodified = (28 - charValue)+64;
+					}
+				}else if(charValue >= 0 && charValue <= 26){
+					charCodified = (45 - charValue)+64;
+				}else{
+					charCodified = charValue +64;
+				}
+				codified += String.fromCharCode(charCodified);
+			}
+			console.log(codified);
+			return codified;
+		}
+		function main(identificativo){
+			var normalText = document.getElementById(identificativo);
+			normalText.value = normalText.value.toUpperCase();
+
+			//console.log("ENTRATOOOOOO");
+			//var normalText = document.getElementById(identificativo).value;
+			normalText = normalText.value.toUpperCase();		
+			var codified = codifica(normalText);
+
+			document.getElementById("codificato").innerHTML = codified;
+			document.getElementById("decodificato").innerHTML = codifica(codified);
+			//console.log(normalText);
+			//console.log(normalText.charCodeAt(0)-64);
+			//console.log("Length: "+normalText.length);
+
+			
+			
+			//console.log("Codified: "+String.fromCharCode(charCodified));
+			//console.log("' ' CODE: "+" ".charCodeAt(0));
+			////console.log("Z".charCodeAt(0));
+		}
+	</script>
+</html>
